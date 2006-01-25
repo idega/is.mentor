@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <extend>${base.project.dir}/base-dependencies.xml</extend>
+  <pomVersion>3</pomVersion>
+  <name>Mentor Integration Block</name>
+  <artifactId>is.mentor</artifactId>
+  <currentVersion>1.0-SNAPSHOT</currentVersion>
+
+  <inceptionYear>2006</inceptionYear>
+  <shortDescription>Mentor Integration module</shortDescription>
+  <versions/>
+  <branches/>
+  <developers>
+    <developer>
+      <name>Tryggvi Larusson</name>
+      <id>tryggvil</id>
+      <email>tryggvi@idega.is</email>
+      <organization>idega software</organization>
+      <roles/>
+    </developer>
+  </developers>
+  <dependencies>
+      <dependency>
+      <groupId>bundles</groupId>
+      <artifactId>com.idega.core</artifactId>
+      <!--HELPER-->
+      <version>3.0.5</version>
+      <!--HELPER-->
+      <version>SNAPSHOT</version>
+      <type>jar</type>
+      <url>http://www.idega.com/</url>
+      <properties>
+        <eclipse.dependency>true</eclipse.dependency>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>Rijndael</groupId>
+      <artifactId>Rijndael</artifactId>
+      <version>1.0</version>
+      <type>jar</type>
+      <url>http://www.idega.com/</url>
+    </dependency>
+  </dependencies>
+  <build>
+    <sourceDirectory>src/java</sourceDirectory>
+  </build>
+  <properties/>
+</project>
