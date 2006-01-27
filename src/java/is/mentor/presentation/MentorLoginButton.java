@@ -3,10 +3,12 @@
  */
 package is.mentor.presentation;
 
-import java.io.IOException;
 import is.mentor.business.EncryptionBean;
+import is.mentor.business.MentorEncryptionBean;
+import java.io.IOException;
 import javax.faces.context.FacesContext;
 import com.idega.idegaweb.IWBundle;
+import com.idega.idegaweb.IWMainApplication;
 import com.idega.presentation.IWContext;
 import com.idega.presentation.Image;
 import com.idega.presentation.PresentationObjectTransitional;
@@ -20,38 +22,26 @@ import com.idega.presentation.ui.SubmitButton;
  * Button to post a form to the mentor web site and log the user into
  * that external webapplication.
  * </p>
- *  Last modified: $Date: 2006/01/25 01:37:10 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/01/27 15:25:12 $ by $Author: tryggvil $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class MentorLoginButton extends PresentationObjectTransitional {
 
-	private String webapplicationUrl = "http://217.151.171.250/test/default.aspx?login=remote";
-	private String encryptionKey="Kui29Sie46K7seTkei45SfY6J8husr18";
+	private String webapplicationUrl = null;
 	private String parameterKey1="Lykill1";
 	private String parameterKey2="Lykill2";
+	private String target="_new";
 	public static final String IW_BUNDLE_IDENTIFIER="is.mentor";
+	public static final String PROPERTY_LOCAL_IPADDRESS="is.mentor.localipaddress";
+	public static final String PROPERTY_SERVER_LOGIN_URL="is.mentor.loginurl";
 	
 	/* (non-Javadoc)
 	 * @see com.idega.presentation.PresentationObject#getBundleIdentifier()
 	 */
 	public String getBundleIdentifier() {
 		return IW_BUNDLE_IDENTIFIER;
-	}
-
-	/**
-	 * @return Returns the encryptionKey.
-	 */
-	public String getEncryptionKey() {
-		return encryptionKey;
-	}
-	
-	/**
-	 * @param encryptionKey The encryptionKey to set.
-	 */
-	public void setEncryptionKey(String encryptionKey) {
-		this.encryptionKey = encryptionKey;
 	}
 	
 	/**
@@ -85,8 +75,14 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 	/**
 	 * @return Returns the webapplicationUrl.
 	 */
-	public String getWebapplicationUrl() {
-		return webapplicationUrl;
+	public String getWebapplicationUrl(IWMainApplication iwma) {
+		if(webapplicationUrl==null){
+			String sPropLoginUrl = iwma.getSettings().getProperty(PROPERTY_SERVER_LOGIN_URL);
+			return sPropLoginUrl;
+		}
+		else{
+			return webapplicationUrl;
+		}
 	}
 	
 	/**
@@ -101,36 +97,43 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 	protected void initializeComponent(FacesContext context) {
 		
 		IWContext iwc = IWContext.getIWContext(context);
-		
-		IWBundle bundle = getBundle(iwc);
+		IWMainApplication iwma = iwc.getIWMainApplication();
 		
 		Form form = new Form();
-		String webappUrl = getWebapplicationUrl();
+		String webappUrl = getWebapplicationUrl(iwma);
 		form.setAction(webappUrl);
-		form.setTarget("_new");
+		String target = getTarget();
+		form.setTarget(target);
 		
-		
-		Image image = bundle.getImage("mentor.gif");
-		SubmitButton button = new SubmitButton(image,"mentorlogin");
+		Image image = new Image(getImageUri(iwc));
+		SubmitButton button = new SubmitButton(image,"Submit");
 		form.getChildren().add(button);
-		String userPersonalId = "1306635919";
-		if(iwc.isLoggedOn()){
-			String personalId = iwc.getCurrentUser().getPersonalID();
-			if(personalId!=null && !personalId.equals("")){
-				userPersonalId=personalId;
-			}
-		}
+		String userPersonalId = getPersonalId(iwc);
 		
-		String serverIpadress = "157.157.136.146";
-		String encryptedServerIpadress = encryptValue(serverIpadress);
+		String serverIpadress = getLocalServerIPAddress(iwc);
+		String encryptedServerIpadress = encryptValue(iwma,serverIpadress);
 		Parameter param1 = new Parameter(getParameterKey1(),encryptedServerIpadress);
 		form.getChildren().add(param1);
 		
-		String encryptedPersonalId = encryptValue(userPersonalId);
+		String encryptedPersonalId = encryptValue(iwma,userPersonalId);
 		Parameter param2 = new Parameter(getParameterKey2(),encryptedPersonalId);
 		form.getChildren().add(param2);
 		
 		getChildren().add(form);
+	}
+
+	/**
+	 * <p>
+	 * TODO tryggvil describe method getTarget
+	 * </p>
+	 * @return
+	 */
+	private String getTarget() {
+		return target;
+	}
+	
+	public void setTarget(String target){
+		this.target=target;
 	}
 
 	/**
@@ -140,13 +143,13 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 	 * @param userPersonalId
 	 * @return
 	 */
-	private String encryptValue(String userPersonalId) {
-		return getEncryptionBean().encrypt(userPersonalId);
+	private String encryptValue(IWMainApplication iwma, String plaintext) {
+		return getEncryptionBean(iwma).encrypt(plaintext);
 	}
 	
 	
-	protected EncryptionBean getEncryptionBean(){
-		return EncryptionBean.getInstance();
+	public static EncryptionBean getEncryptionBean(IWMainApplication iwma){
+		return MentorEncryptionBean.getInstance(iwma);
 	}
 
 	/* (non-Javadoc)
@@ -172,4 +175,36 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 		// TODO Auto-generated method stub
 		super.encodeEnd(arg0);
 	}
+	
+	
+	protected String getPersonalId(IWContext iwc){
+		//String userPersonalId = "1306635919";
+		String userPersonalId = "2411655669";
+		if(iwc.isLoggedOn()){
+			String personalId = iwc.getCurrentUser().getPersonalID();
+			if(personalId!=null && !personalId.equals("")){
+				userPersonalId=personalId;
+			}
+		}
+		return userPersonalId;
+	}
+	
+	protected String getLocalServerIPAddress(IWContext iwc){
+		
+		String propAddr = iwc.getIWMainApplication().getSettings().getProperty(PROPERTY_LOCAL_IPADDRESS);
+		if(propAddr!=null){
+			return propAddr;
+		}
+		else{
+			String addr = iwc.getRequest().getLocalAddr();
+			return addr;
+		}
+	}
+	
+	protected String getImageUri(IWContext iwc){
+		IWBundle bundle = getBundle(iwc);
+		return bundle.getResourcesURL()+"/mentor.gif";
+	}
+	
+	
 }

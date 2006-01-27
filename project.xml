@@ -21,7 +21,7 @@
     </developer>
   </developers>
   <dependencies>
-      <dependency>
+	<dependency>
       <groupId>bundles</groupId>
       <artifactId>com.idega.core</artifactId>
       <!--HELPER-->
@@ -34,13 +34,7 @@
         <eclipse.dependency>true</eclipse.dependency>
       </properties>
     </dependency>
-    <dependency>
-      <groupId>Rijndael</groupId>
-      <artifactId>Rijndael</artifactId>
-      <version>1.0</version>
-      <type>jar</type>
-      <url>http://www.idega.com/</url>
-    </dependency>
+
   </dependencies>
   <build>
     <sourceDirectory>src/java</sourceDirectory>
