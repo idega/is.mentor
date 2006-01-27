@@ -3,7 +3,6 @@
  */
 package is.mentor.presentation;
 
-import is.mentor.business.EncryptionBean;
 import is.mentor.business.MentorEncryptionBean;
 import java.io.IOException;
 import javax.faces.context.FacesContext;
@@ -15,6 +14,7 @@ import com.idega.presentation.PresentationObjectTransitional;
 import com.idega.presentation.ui.Form;
 import com.idega.presentation.ui.Parameter;
 import com.idega.presentation.ui.SubmitButton;
+import com.idega.util.encryption.RijndaelEncryptionBean;
 
 
 /**
@@ -22,10 +22,10 @@ import com.idega.presentation.ui.SubmitButton;
  * Button to post a form to the mentor web site and log the user into
  * that external webapplication.
  * </p>
- *  Last modified: $Date: 2006/01/27 15:25:12 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/01/27 15:49:05 $ by $Author: tryggvil $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class MentorLoginButton extends PresentationObjectTransitional {
 
@@ -148,7 +148,7 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 	}
 	
 	
-	public static EncryptionBean getEncryptionBean(IWMainApplication iwma){
+	public static RijndaelEncryptionBean getEncryptionBean(IWMainApplication iwma){
 		return MentorEncryptionBean.getInstance(iwma);
 	}
 

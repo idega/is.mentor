@@ -4,18 +4,19 @@
 package is.mentor.business;
 
 import com.idega.idegaweb.IWMainApplication;
+import com.idega.util.encryption.RijndaelEncryptionBean;
 
 
 /**
  * <p>
  * TODO tryggvil Describe Type MentorEncryptionBean
  * </p>
- *  Last modified: $Date: 2006/01/27 15:25:12 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/01/27 15:49:05 $ by $Author: tryggvil $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
-public class MentorEncryptionBean extends EncryptionBean {
+public class MentorEncryptionBean extends RijndaelEncryptionBean {
 	
 	public static final String BEAN_ID="MentorEncryptionBean";
 	public static final String PROPERTY_ENCRYPTION_KEY="is.mentor.encryptionkey";
@@ -28,6 +29,7 @@ public class MentorEncryptionBean extends EncryptionBean {
 			instance = new MentorEncryptionBean();
 			String key = iwma.getSettings().getProperty(PROPERTY_ENCRYPTION_KEY);
 			if(key!=null){
+				instance.setKeySize(32);
 				instance.setSecretKey(key);
 				instance.setIV(initVector);
 			}
