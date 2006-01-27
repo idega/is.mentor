@@ -22,10 +22,10 @@ import com.idega.util.encryption.RijndaelEncryptionBean;
  * Button to post a form to the mentor web site and log the user into
  * that external webapplication.
  * </p>
- *  Last modified: $Date: 2006/01/27 15:49:05 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/01/27 16:01:20 $ by $Author: tryggvil $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class MentorLoginButton extends PresentationObjectTransitional {
 
@@ -204,6 +204,28 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 	protected String getImageUri(IWContext iwc){
 		IWBundle bundle = getBundle(iwc);
 		return bundle.getResourcesURL()+"/mentor.gif";
+	}
+
+	/**
+	 * @see javax.faces.component.UIComponentBase#saveState(javax.faces.context.FacesContext)
+	 */
+	public Object saveState(FacesContext ctx) {
+		Object values[] = new Object[3];
+		values[0] = super.saveState(ctx);
+		values[1] = target;
+		values[2] = webapplicationUrl;
+		return values;
+	}
+
+	/**
+	 * @see javax.faces.component.UIComponentBase#restoreState(javax.faces.context.FacesContext,
+	 *      java.lang.Object)
+	 */
+	public void restoreState(FacesContext ctx, Object state) {
+		Object values[] = (Object[]) state;
+		super.restoreState(ctx, values[0]);
+		target = (String) values[1];
+		webapplicationUrl = (String) values[2];
 	}
 	
 	
