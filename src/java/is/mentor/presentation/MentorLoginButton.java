@@ -22,10 +22,10 @@ import com.idega.util.encryption.RijndaelEncryptionBean;
  * Button to post a form to the mentor web site and log the user into
  * that external webapplication.
  * </p>
- *  Last modified: $Date: 2006/01/27 16:01:20 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/01/27 16:03:32 $ by $Author: tryggvil $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class MentorLoginButton extends PresentationObjectTransitional {
 
@@ -178,8 +178,7 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 	
 	
 	protected String getPersonalId(IWContext iwc){
-		//String userPersonalId = "1306635919";
-		String userPersonalId = "2411655669";
+		String userPersonalId = "";
 		if(iwc.isLoggedOn()){
 			String personalId = iwc.getCurrentUser().getPersonalID();
 			if(personalId!=null && !personalId.equals("")){
