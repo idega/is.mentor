@@ -11,10 +11,10 @@ import com.idega.util.encryption.RijndaelEncryptionBean;
  * <p>
  * TODO tryggvil Describe Type MentorEncryptionBean
  * </p>
- *  Last modified: $Date: 2006/01/27 15:49:05 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/02/02 16:15:28 $ by $Author: laddi $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class MentorEncryptionBean extends RijndaelEncryptionBean {
 	
@@ -35,6 +35,15 @@ public class MentorEncryptionBean extends RijndaelEncryptionBean {
 			}
 			iwma.setAttribute(BEAN_ID,instance);
 		}
+		return instance;
+	}
+	
+	public static final MentorEncryptionBean getInstance(String key) {
+		MentorEncryptionBean instance = new MentorEncryptionBean();
+		instance.setKeySize(32);
+		instance.setSecretKey(key);
+		instance.setIV(initVector);
+		
 		return instance;
 	}
 	
