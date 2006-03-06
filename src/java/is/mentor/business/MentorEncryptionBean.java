@@ -11,10 +11,10 @@ import com.idega.util.encryption.RijndaelEncryptionBean;
  * <p>
  * TODO tryggvil Describe Type MentorEncryptionBean
  * </p>
- *  Last modified: $Date: 2006/02/02 16:15:28 $ by $Author: laddi $
+ *  Last modified: $Date: 2006/03/06 13:04:04 $ by $Author: tryggvil $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class MentorEncryptionBean extends RijndaelEncryptionBean {
 	
@@ -46,5 +46,19 @@ public class MentorEncryptionBean extends RijndaelEncryptionBean {
 		
 		return instance;
 	}
+	
+	public static final MentorEncryptionBean getWebServiceInstance() {
+		return getInstance("3ru8w3ryK7373rwr3cr4dt454dvts3vr");
+	}
+
+	/**
+	 * <p>
+	 * TODO tryggvil describe method getEncryptedWebServiceKey
+	 * </p>
+	 * @return
+	 */
+	public String getEncryptedWebServiceKey() {
+		return encrypt("cN34n6cSh9AWCd");
+	} 
 	
 }
