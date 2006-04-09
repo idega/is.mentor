@@ -22,10 +22,10 @@ import com.idega.util.encryption.RijndaelEncryptionBean;
  * Button to post a form to the mentor web site and log the user into
  * that external webapplication.
  * </p>
- *  Last modified: $Date: 2006/01/31 09:28:30 $ by $Author: laddi $
+ *  Last modified: $Date: 2006/04/09 11:57:35 $ by $Author: laddi $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class MentorLoginButton extends PresentationObjectTransitional {
 
@@ -48,7 +48,7 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 	 * @return Returns the parameterKey1.
 	 */
 	public String getParameterKey1() {
-		return parameterKey1;
+		return this.parameterKey1;
 	}
 	
 	/**
@@ -62,7 +62,7 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 	 * @return Returns the parameterKey2.
 	 */
 	public String getParameterKey2() {
-		return parameterKey2;
+		return this.parameterKey2;
 	}
 	
 	/**
@@ -76,12 +76,12 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 	 * @return Returns the webapplicationUrl.
 	 */
 	public String getWebapplicationUrl(IWMainApplication iwma) {
-		if(webapplicationUrl==null){
+		if(this.webapplicationUrl==null){
 			String sPropLoginUrl = iwma.getSettings().getProperty(PROPERTY_SERVER_LOGIN_URL);
 			return sPropLoginUrl;
 		}
 		else{
-			return webapplicationUrl;
+			return this.webapplicationUrl;
 		}
 	}
 	
@@ -132,7 +132,7 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 	 * @return
 	 */
 	private String getTarget() {
-		return target;
+		return this.target;
 	}
 	
 	public void setTarget(String target){
@@ -214,8 +214,8 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 	public Object saveState(FacesContext ctx) {
 		Object values[] = new Object[3];
 		values[0] = super.saveState(ctx);
-		values[1] = target;
-		values[2] = webapplicationUrl;
+		values[1] = this.target;
+		values[2] = this.webapplicationUrl;
 		return values;
 	}
 
@@ -226,8 +226,8 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 	public void restoreState(FacesContext ctx, Object state) {
 		Object values[] = (Object[]) state;
 		super.restoreState(ctx, values[0]);
-		target = (String) values[1];
-		webapplicationUrl = (String) values[2];
+		this.target = (String) values[1];
+		this.webapplicationUrl = (String) values[2];
 	}
 	
 	
