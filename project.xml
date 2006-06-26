@@ -5,11 +5,16 @@
   <pomVersion>3</pomVersion>
   <name>Mentor Integration Block</name>
   <artifactId>is.mentor</artifactId>
-  <currentVersion>1.0-SNAPSHOT</currentVersion>
-
+  <currentVersion>1.1</currentVersion>
   <inceptionYear>2006</inceptionYear>
   <shortDescription>Mentor Integration module</shortDescription>
-  <versions/>
+  <versions>
+    <version>
+      <id>1.1</id>
+      <name>1.1</name>
+      <tag>MENTOR_1_1</tag>
+    </version>
+  </versions>
   <branches/>
   <developers>
     <developer>
@@ -21,20 +26,16 @@
     </developer>
   </developers>
   <dependencies>
-	<dependency>
+    <dependency>
       <groupId>bundles</groupId>
       <artifactId>com.idega.core</artifactId>
-      <!--HELPER-->
-      <version>3.0.5</version>
-      <!--HELPER-->
-      <version>SNAPSHOT</version>
+      <version>3.1.0</version>
       <type>jar</type>
       <url>http://www.idega.com/</url>
       <properties>
         <eclipse.dependency>true</eclipse.dependency>
       </properties>
     </dependency>
-
   </dependencies>
   <build>
     <sourceDirectory>src/java</sourceDirectory>
