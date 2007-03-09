@@ -5,7 +5,7 @@
   <pomVersion>3</pomVersion>
   <name>Mentor Integration Block</name>
   <artifactId>is.mentor</artifactId>
-  <currentVersion>1.1</currentVersion>
+  <currentVersion>3.1.1</currentVersion>
   <inceptionYear>2006</inceptionYear>
   <shortDescription>Mentor Integration module</shortDescription>
   <versions>
@@ -29,12 +29,9 @@
     <dependency>
       <groupId>bundles</groupId>
       <artifactId>com.idega.core</artifactId>
-      <version>3.1.0</version>
+      <version>3.1.39</version>
       <type>jar</type>
       <url>http://www.idega.com/</url>
-      <properties>
-        <eclipse.dependency>true</eclipse.dependency>
-      </properties>
     </dependency>
   </dependencies>
   <build>
