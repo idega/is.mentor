@@ -115,12 +115,16 @@ public class MentorLoginButton extends PresentationObjectTransitional {
 		
 		String serverIpadress = getLocalServerIPAddress(iwc);
 		String encryptedServerIpadress = encryptValue(iwma,serverIpadress);
-		Parameter param1 = new Parameter(getParameterKey1(),encryptedServerIpadress);
-		form.getChildren().add(param1);
+		if (encryptedServerIpadress != null) {
+			Parameter param1 = new Parameter(getParameterKey1(),encryptedServerIpadress);
+			form.getChildren().add(param1);
+		}
 		
 		String encryptedPersonalId = encryptValue(iwma,userPersonalId);
-		Parameter param2 = new Parameter(getParameterKey2(),encryptedPersonalId);
-		form.getChildren().add(param2);
+		if (encryptedPersonalId != null) {
+			Parameter param2 = new Parameter(getParameterKey2(),encryptedPersonalId);
+			form.getChildren().add(param2);
+		}
 		
 		getChildren().add(form);
 	}
