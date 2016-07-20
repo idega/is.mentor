@@ -6,3 +6,5 @@ target/
 .settings/org.eclipse.m2e.core.prefs
 
 .settings/org.eclipse.core.resources.prefs
+.settings/
+.settings/org.eclipse.jdt.core.prefs
